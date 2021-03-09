@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <actionCalls>
+        <name>Send_Loan_SMS</name>
+        <label>Send Loan SMS</label>
+        <locationX>171</locationX>
+        <locationY>198</locationY>
+        <actionName>TwilioSF__TwilioSendSMS</actionName>
+        <actionType>apex</actionType>
+        <inputParameters>
+            <name>message</name>
+            <value>
+                <elementReference>SMS_Text</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>recordId</name>
+            <value>
+                <elementReference>Application.Id</elementReference>
+            </value>
+        </inputParameters>
+        <inputParameters>
+            <name>toNumber</name>
+            <value>
+                <elementReference>Application.Contact__r.MobilePhone</elementReference>
+            </value>
+        </inputParameters>
+    </actionCalls>
+    <apiVersion>51.0</apiVersion>
+    <formulas>
+        <name>SMS_Text</name>
+        <dataType>String</dataType>
+        <expression>&quot;You have approved for loan amount &quot; &amp;TEXT({!Application.Amount__c}) &amp;&quot; Rate &quot;&amp; TEXT({!Application.Interest__c}*100)&amp;&quot;% Reply Yes or No to +17787601483 for further process&quot;</expression>
+    </formulas>
+    <interviewLabel>Send Loan SMS {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Send Loan SMS</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>50</locationX>
+        <locationY>50</locationY>
+        <connector>
+            <targetReference>Send_Loan_SMS</targetReference>
+        </connector>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>Application</name>
+        <dataType>SObject</dataType>
+        <isCollection>false</isCollection>
+        <isInput>true</isInput>
+        <isOutput>false</isOutput>
+        <objectType>Loan_Application__c</objectType>
+    </variables>
+</Flow>
